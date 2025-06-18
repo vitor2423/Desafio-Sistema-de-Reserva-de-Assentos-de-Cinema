@@ -1,0 +1,44 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    'filme': ['Filme A', 'Filme B', 'Filme A', 'Filme C', 'Filme B', 'Filme C'],
+    'horario': ['14:00', '16:00', '18:00', '20:00', '14:00', '16:00'],
+    'sala': ['Sala 1', 'Sala 2', 'Sala 1', 'Sala 3', 'Sala 2', 'Sala 3'],
+    'genero': ['Ação', 'Comédia', 'Ação', 'Drama', 'Comédia', 'Drama'],
+    'ingressos_vendidos': [100, 50, 120, 80, 60, 90]
+}
+df = pd.DataFrame(data)
+
+df_horario = df.groupby('horario')['ingressos_vendidos'].sum().reset_index()
+print("Desempenho por horário:")
+print(df_horario)
+
+plt.figure(figsize=(10, 6))
+plt.bar(df_horario['horario'], df_horario['ingressos_vendidos'])
+plt.xlabel('Horário')
+plt.ylabel('Ingressos Vendidos')
+plt.title('Desempenho por Horário')
+plt.show()
+
+df_sala = df.groupby('sala')['ingressos_vendidos'].sum().reset_index()
+print("\nDesempenho por sala:")
+print(df_sala)
+
+plt.figure(figsize=(10, 6))
+plt.bar(df_sala['sala'], df_sala['ingressos_vendidos'])
+plt.xlabel('Sala')
+plt.ylabel('Ingressos Vendidos')
+plt.title('Desempenho por Sala')
+plt.show()
+
+df_genero = df.groupby('genero')['ingressos_vendidos'].sum().reset_index()
+print("\nDesempenho por gênero:")
+print(df_genero)
+
+plt.figure(figsize=(10, 6))
+plt.bar(df_genero['genero'], df_genero['ingressos_vendidos'])
+plt.xlabel('Gênero')
+plt.ylabel('Ingressos Vendidos')
+plt.title('Desempenho por Gênero')
+plt.show()
