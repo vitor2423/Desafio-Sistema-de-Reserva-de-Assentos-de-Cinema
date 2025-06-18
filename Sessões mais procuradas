@@ -1,0 +1,48 @@
+def encontrar_sessoes_mais_procuradas(dados_sessoes, num_sessoes_desejadas):
+  """
+  Encontra as sessões mais procuradas com base em um dicionário de dados.
+
+  Args:
+    dados_sessoes: Um dicionário onde as chaves são os nomes das sessões e os
+                   valores são o número de visualizações (inteiros).
+    num_sessoes_desejadas: O número de sessões mais procuradas a serem exibidas.
+
+  Returns:
+    Uma lista ordenada das sessões mais procuradas, ou uma mensagem de erro se
+    o formato dos dados for inválido ou se não houver sessões suficientes.
+  """
+  if not isinstance(dados_sessoes, dict):
+    return "Erro: O formato dos dados deve ser um dicionário."
+
+  if not all(isinstance(valor, int) for valor in dados_sessoes.values()):
+      return "Erro: Os valores do dicionário devem ser números inteiros (visualizações)."
+  
+  if not isinstance(num_sessoes_desejadas, int) or num_sessoes_desejadas <= 0:
+      return "Erro: O número de sessões desejadas deve ser um inteiro positivo."
+
+  if not dados_sessoes:
+      return "Erro: Não há dados de sessões para processar."
+
+  sessoes_ordenadas = sorted(dados_sessoes.items(), key=lambda item: item[1], reverse=True)
+
+  sessoes_mais_procuradas = sessoes_ordenadas[:num_sessoes_desejadas]
+  
+  return [sessao[0] for sessao in sessoes_mais_procuradas]
+
+dados = {
+  "Sessão A": 1500,
+  "Sessão B": 2300,
+  "Sessão C": 900,
+  "Sessão D": 1800,
+  "Sessão E": 2500
+}
+
+num_sessao = 3
+sessoes_mais_procuradas = encontrar_sessoes_mais_procuradas(dados, num_sessao)
+
+if isinstance(sessoes_mais_procuradas, list):
+    print(f"As {num_sessao} sessões mais procuradas são:")
+    for sessao in sessoes_mais_procuradas:
+        print(f"- {sessao}")
+else:
+    print(sessoes_mais_procuradas)
