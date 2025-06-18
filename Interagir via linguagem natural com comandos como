@@ -1,0 +1,49 @@
+filmes = {
+    "vingadores_ultimato": {
+        "ingressos_total": 100,
+        "reservas": 20,
+        "cancelamentos": 5
+    },
+    "star_wars_ascensao_skywalker": {
+        "ingressos_total": 150,
+        "reservas": 30,
+        "cancelamentos": 10
+    }
+}
+
+def verificar_disponibilidade(filme):
+  """Verifica a disponibilidade de ingressos para um filme."""
+  if filme in filmes:
+    disponiveis = filmes[filme]["ingressos_total"] - filmes[filme]["reservas"] + filmes[filme]["cancelamentos"]
+    print(f"Disponibilidade para {filme}: {disponiveis} ingressos")
+  else:
+    print(f"Filme '{filme}' não encontrado.")
+
+def reservar_ingressos(filme, quantidade):
+  """Reserva ingressos para um filme."""
+  if filme in filmes:
+    if filmes[filme]["ingressos_total"] - filmes[filme]["reservas"] + filmes[filme]["cancelamentos"] >= quantidade:
+      filmes[filme]["reservas"] += quantidade
+      print(f"{quantidade} ingressos reservados para {filme}.")
+    else:
+      print(f"Não há ingressos suficientes para {filme}.")
+  else:
+    print(f"Filme '{filme}' não encontrado.")
+
+def cancelar_reservas(filme, quantidade):
+  """Cancela reservas de ingressos para um filme."""
+  if filme in filmes:
+    if filmes[filme]["reservas"] >= quantidade:
+      filmes[filme]["reservas"] -= quantidade
+      filmes[filme]["cancelamentos"] += quantidade
+      print(f"{quantidade} reservas de {filme} canceladas.")
+    else:
+      print(f"Não há reservas suficientes para {filme}.")
+  else:
+    print(f"Filme '{filme}' não encontrado.")
+
+verificar_disponibilidade("vingadores_ultimato")
+reservar_ingressos("vingadores_ultimato", 5)
+verificar_disponibilidade("vingadores_ultimato")
+cancelar_reservas("vingadores_ultimato", 2)
+verificar_disponibilidade("vingadores_ultimato")
