@@ -1,0 +1,28 @@
+assentos = [0] * 10  
+
+for numero_sessao in range(1, 4): 
+    print(f"Sessão: {numero_sessao}")
+
+    entradas = int(input(f"Número de pessoas que entraram na sessão {numero_sessao}: "))
+    saidas = int(input(f"Número de pessoas que saíram da sessão {numero_sessao}: "))
+
+    for i in range(entradas):
+        if 0 in assentos:
+            assentos[assentos.index(0)] = 1
+        else:
+            print("Todos os assentos estão ocupados!")
+            break  
+
+    for i in range(saidas):
+        if 1 in assentos:
+            assentos[assentos.index(1)] = 0
+        else:
+            print("Não há assentos ocupados!")
+            break
+
+    ocupados = assentos.count(1)
+    print(f"Assentos ocupados na sessão {numero_sessao}: {ocupados}")
+    print("Estado atual dos assentos:", assentos) 
+
+total_ocupados = sum(assentos)
+print(f"Total de assentos ocupados em todas as sessões: {total_ocupados}")
