@@ -1,0 +1,45 @@
+def criar_sessao(nome, horario, estado="disponível"):
+    """
+    Cria um dicionário representando uma sessão.
+    """
+    return {"nome": nome, "horario": horario, "estado": estado}
+
+def adicionar_sessao(lista_sessao, nova_sessao):
+    """
+    Adiciona uma sessão à lista.
+    """
+    lista_sessao.append(nova_sessao)
+
+def atualizar_ocupacao(lista_sessao, nome_sessao, novo_estado):
+    """
+    Atualiza o estado de ocupação de uma sessão.
+    """
+    for sessao in lista_sessao:
+        if sessao["nome"] == nome_sessao:
+            sessao["estado"] = novo_estado
+            return True  
+    return False  
+
+def listar_sessao(lista_sessao):
+    """
+    Lista todas as sessões com o respetivo estado de ocupação.
+    """
+    for sessao in lista_sessao:
+        print(f"Sessão: {sessao['nome']}, Horário: {sessao['horario']}, Estado: {sessao['estado']}")
+
+lista_sessao = []
+
+sessao1 = criar_sessao("Sessão 1", "10:00-11:00")
+adicionar_sessao(lista_sessao, sessao1)
+
+sessao2 = criar_sessao("Sessão 2", "11:00-12:00", "ocupado")
+adicionar_sessao(lista_sessao, sessao2)
+
+sessao3 = criar_sessao("Sessão 3", "12:00-13:00")
+adicionar_sessao(lista_sessao, sessao3)
+
+listar_sessao(lista_sessao)
+
+atualizar_ocupacao(lista_sessao, "Sessão 1", "ocupado")
+
+listar_sessao(lista_sessao)
