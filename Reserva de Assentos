@@ -1,0 +1,28 @@
+import datetime
+
+class Reserva:
+    def __init__(self, id_reserva, assentos, quantidade_bilhetes, data_reserva, tipo_movimentacao):
+        self.id_reserva = id_reserva
+        self.assentos = assentos
+        self.quantidade_bilhetes = quantidade_bilhetes
+        self.data_reserva = data_reserva
+        self.tipo_movimentacao = tipo_movimentacao
+
+    def __str__(self):
+        return f"ID da Reserva: {self.id_reserva}, Assentos: {self.assentos}, Bilhetes: {self.quantidade_bilhetes}, Data: {self.data_reserva}, Movimentação: {self.tipo_movimentacao}"
+
+reserva1 = Reserva("ABC123", ["1A", "1B"], 2, datetime.date(2025, 6, 12), "Reserva")
+print(reserva1)
+
+reserva2 = Reserva("XYZ456", ["2C"], 1, datetime.date(2025, 6, 11), "Cancelamento")
+print(reserva2)
+
+reservas = []
+reservas.append(reserva1)
+reservas.append(reserva2)
+
+def listar_reservas():
+    for reserva in reservas:
+        print(reserva)
+
+listar_reservas()
