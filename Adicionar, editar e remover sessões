@@ -1,0 +1,63 @@
+import datetime
+
+def adicionar_sessao(lista_sessoes, filme, data, horario, sala):
+    data_hora = datetime.datetime.combine(data, horario)
+    sessao = {
+        "filme": filme,
+        "data_hora": data_hora,
+        "sala": sala
+    }
+    
+    lista_sessoes.append(sessao)
+    print(f"Sessão do filme {filme} em {data_hora} na sala {sala} adicionada.")
+
+def editar_sessao(lista_sessoes, indice_sessao, novo_filme=None, nova_data=None, novo_horario=None, nova_sala=None):
+    if 0 <= indice_sessao < len(lista_sessoes):
+        sessao = lista_sessoes[indice_sessao]
+        if novo_filme:
+            sessao["filme"] = novo_filme
+        if nova_data and novo_horario:
+            data_hora = datetime.datetime.combine(nova_data, novo_horario)
+            sessao["data_hora"] = data_hora
+        elif nova_data:
+            sessao["data_hora"] = datetime.datetime.combine(nova_data, sessao["data_hora"].time())
+        elif novo_horario:
+            sessao["data_hora"] = datetime.datetime.combine(sessao["data_hora"].date(), novo_horario)
+        if nova_sala:
+            sessao["sala"] = nova_sala
+        print(f"Sessão editada com sucesso.")
+    else:
+        print("Índice de sessão inválido.")
+
+def remover_sessao(lista_sessoes, indice_sessao):
+    if 0 <= indice_sessao < len(lista_sessoes):
+        sessao = lista_sessoes.pop(indice_sessao)
+        print(f"Sessão do filme {sessao['filme']} removida.")
+    else:
+        print("Índice de sessão inválido.")
+
+def listar_sessoes(lista_sessoes):
+    if not lista_sessoes:
+        print("Não há sessões cadastradas.")
+        return
+    for indice, sessao in enumerate(lista_sessoes):
+        print(f"Índice: {indice}")
+        print(f"  Filme: {sessao['filme']}")
+        print(f"  Data e Hora: {sessao['data_hora']}")
+        print(f"  Sala: {sessao['sala']}")
+        print("-" * 20)
+
+sessoes = []
+
+adicionar_sessao(sessoes, "Star Wars", datetime.date(2025, 7, 10), datetime.time(19, 30), "Sala 1")
+adicionar_sessao(sessoes, "Avengers", datetime.date(2025, 7, 11), datetime.time(14, 00), "Sala 2")
+
+listar_sessoes(sessoes)
+
+editar_sessao(sessoes, 0, novo_filme="The Batman", novo_horario=datetime.time(20, 00))
+
+listar_sessoes(sessoes)
+
+remover_sessao(sessoes, 1)
+
+listar_sessoes(sessoes)
